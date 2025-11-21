@@ -109,7 +109,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.audio('sfx_wrong', 'assets/audio/sfx_wrong.wav');
         this.load.audio('sfx_click', 'assets/audio/sfx_click.wav');
         this.load.audio('sfx_pop', 'assets/audio/sfx_pop.wav');
-        // this.load.audio("sfx_flyaway", "assets/audio/sfx_flyaway.mp3");
+        this.load.audio('correct_answer', 'assets/audio/correct_answer.mp3');
 
         this.load.audio('vo_count_1', 'assets/audio/vo_count_1.mp3');
         this.load.audio('vo_count_2', 'assets/audio/vo_count_2.mp3');
@@ -126,11 +126,11 @@ export default class GameScene extends Phaser.Scene {
         // rabbit: đặt theo tỉ lệ
         this.rabbit = this.add.image(
             this.pctX(0.15),
-            this.pctY(0.75),
+            this.pctY(0.7),
             'rabbit_idle'
         );
         // scale rabbit theo kích thước màn: ví dụ 12% chiều cao
-        this.rabbit.setDisplaySize(this.getH() * 0.7, this.getH() * 0.7);
+        this.rabbit.setDisplaySize(this.getH() * 0.5, this.getH() * 0.75);
 
         // banner top
         this.banner = this.add.image(
@@ -289,6 +289,7 @@ export default class GameScene extends Phaser.Scene {
         (this as any).isProcessing = true;
 
         this.sound.play('sfx_correct');
+        this.sound.play('correct_answer');
 
         const w = this.scale.width;
         const h = this.scale.height;
@@ -388,24 +389,46 @@ export default class GameScene extends Phaser.Scene {
 
                         // ⭕ Nếu tất cả bóng sai đã nổ xong
                         if (poppedCount === totalWrong) {
-                            // Destroy bóng đúng
-                            balloon.destroy();
+                            // Hiệu ứng thu nhỏ rồi biến mất
+                            this.tweens.add({
+                                targets: balloon,
+                                scaleX: 0,
+                                scaleY: 0,
+                                alpha: 0,
+                                duration: 400,
+                                ease: 'Back.In',
+                                onComplete: () => {
+                                    balloon.destroy();
 
-                            // Chọn item random
-                            const items = ['apple', 'flower', 'carrot', 'leaf'];
-                            const itemKey =
-                                items[Math.floor(Math.random() * items.length)];
+                                    //delay 500ms rồi hiện bảng số
+                                    this.time.delayedCall(500, () => {
+                                        // Chọn item random
+                                        const items = [
+                                            'apple',
+                                            'flower',
+                                            'carrot',
+                                            'leaf',
+                                        ];
+                                        const itemKey =
+                                            items[
+                                                Math.floor(
+                                                    Math.random() * items.length
+                                                )
+                                            ];
 
-                            // Hiện bảng số
-                            const waitTime = this.showNumberBoard(
-                                this.levelData.correctNumber,
-                                itemKey,
-                                'board_bg'
-                            );
+                                        // Hiện bảng số
+                                        const waitTime = this.showNumberBoard(
+                                            this.levelData.correctNumber,
+                                            itemKey,
+                                            'board_bg'
+                                        );
 
-                            // Chờ đọc xong rồi hiện next
-                            this.time.delayedCall(waitTime, () => {
-                                this.showNextButton();
+                                        // Chờ đọc xong rồi hiện next
+                                        this.time.delayedCall(waitTime, () => {
+                                            this.showNextButton();
+                                        });
+                                    });
+                                },
                             });
                         }
                     },
@@ -413,7 +436,7 @@ export default class GameScene extends Phaser.Scene {
             });
         });
 
-        this.rabbit.setTexture('rabbit_cheer').setScale(1.2);
+        this.rabbit.setTexture('rabbit_cheer').setScale(1.15);
     }
 
     showNumberBoard(number: number, itemKey: string, boardBgKey?: string) {
