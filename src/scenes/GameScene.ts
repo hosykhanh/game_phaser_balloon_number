@@ -63,10 +63,10 @@ export default class GameScene extends Phaser.Scene {
 
     preload() {
         // IMAGES
-        this.load.image('rabbit_idle', '/assets/images/rabbit_idle.webp');
-        this.load.image('rabbit_cheer', '/assets/images/rabbit_cheer.webp');
-        this.load.image('banner_top', '/assets/images/banner_top.webp');
-        this.load.image('banner_no_text', '/assets/images/banner_no_text.webp');
+        this.load.image('rabbit_idle', 'assets/images/rabbit_idle.webp');
+        this.load.image('rabbit_cheer', 'assets/images/rabbit_cheer.webp');
+        this.load.image('banner_top', 'assets/images/banner_top.webp');
+        this.load.image('banner_no_text', 'assets/images/banner_no_text.webp');
 
         this.load.image('btn_reset', 'assets/images/btn_reset.webp');
         this.load.image('btn_exit', 'assets/images/btn_exit.webp');
@@ -449,6 +449,23 @@ export default class GameScene extends Phaser.Scene {
                                     this.time.delayedCall(waitTime, () => {
                                         this.showNextButton();
                                     });
+
+                                    this.time.delayedCall(
+                                        waitTime + 2000,
+                                        () => {
+                                            this.currentLevel++;
+                                            if (
+                                                this.currentLevel >=
+                                                this.levels.length
+                                            ) {
+                                                this.scene.start('EndScene');
+                                            } else {
+                                                this.scene.restart({
+                                                    level: this.currentLevel,
+                                                });
+                                            }
+                                        }
+                                    );
                                 });
                             },
                         });
