@@ -101,10 +101,11 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('carrot', 'assets/images/carrot.webp');
         this.load.image('leaf', 'assets/images/leaf.webp');
 
-        this.load.image('icon_next', 'assets/images/icon_next.webp');
         this.load.image('board_bg', 'assets/images/board_bg.webp');
 
         // AUDIO
+        this.load.audio('voice_rotate', 'assets/audio/rotate.ogg');
+
         this.load.audio('vo_prompt_1', 'assets/audio/vo_prompt_1.ogg');
         this.load.audio('vo_prompt_2', 'assets/audio/vo_prompt_2.ogg');
         this.load.audio('vo_prompt_3', 'assets/audio/vo_prompt_3.ogg');
@@ -445,11 +446,6 @@ export default class GameScene extends Phaser.Scene {
                                         'board_bg'
                                     );
 
-                                    // Chờ đọc xong rồi hiện next
-                                    this.time.delayedCall(waitTime, () => {
-                                        this.showNextButton();
-                                    });
-
                                     this.time.delayedCall(
                                         waitTime + 2000,
                                         () => {
@@ -560,43 +556,5 @@ export default class GameScene extends Phaser.Scene {
 
         const totalTime = number * delayPerItem + voiceDuration;
         return totalTime;
-    }
-
-    showNextButton() {
-        const w = this.scale.width;
-        const h = this.scale.height;
-
-        const offset = Math.min(w, h) * 0.1;
-        const btnScale = Math.min(w, h) / 1280;
-
-        const nextButton = this.add
-            .image(w - offset, h - offset, 'icon_next')
-            .setInteractive({ useHandCursor: true })
-            .setScale(btnScale)
-            .setOrigin(1)
-            .setAlpha(0);
-
-        nextButton.setAlpha(1);
-
-        this.tweens.add({
-            targets: nextButton,
-            scale: btnScale * 1.1,
-            yoyo: true,
-            repeat: -1,
-            duration: 500,
-        });
-
-        nextButton.once('pointerdown', () => {
-            this.sound.play('sfx_click');
-
-            this.time.delayedCall(300, () => {
-                this.currentLevel++;
-                if (this.currentLevel >= this.levels.length) {
-                    this.scene.start('EndScene');
-                } else {
-                    this.scene.restart({ level: this.currentLevel });
-                }
-            });
-        });
     }
 }
