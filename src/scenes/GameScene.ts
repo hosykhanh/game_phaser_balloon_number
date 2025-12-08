@@ -77,23 +77,23 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('balloon_purple', 'assets/images/balloon_purple.png');
 
         this.load.spritesheet('pop_red', 'assets/images/pop_red.png', {
-            frameWidth: 384,
-            frameHeight: 685,
+            frameWidth: 1024,
+            frameHeight: 1829,
         });
 
         this.load.spritesheet('pop_blue', 'assets/images/pop_blue.png', {
-            frameWidth: 384,
-            frameHeight: 711,
+            frameWidth: 1024,
+            frameHeight: 1829,
         });
 
         this.load.spritesheet('pop_green', 'assets/images/pop_green.png', {
-            frameWidth: 384,
-            frameHeight: 636,
+            fframeWidth: 1024,
+            frameHeight: 1698,
         });
 
         this.load.spritesheet('pop_purple', 'assets/images/pop_purple.png', {
-            frameWidth: 384,
-            frameHeight: 754,
+            frameWidth: 1024,
+            frameHeight: 1829,
         });
 
         this.load.image('apple', 'assets/images/apple.png');
