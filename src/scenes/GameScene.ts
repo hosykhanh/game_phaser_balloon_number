@@ -87,7 +87,7 @@ export default class GameScene extends Phaser.Scene {
         });
 
         this.load.spritesheet('pop_green', 'assets/images/pop_green.png', {
-            fframeWidth: 1024,
+            frameWidth: 1024,
             frameHeight: 1698,
         });
 
@@ -104,7 +104,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('board_bg', 'assets/images/board_bg.png');
 
         // AUDIO
-        this.load.audio('voice_rotate', 'assets/audio/rotate.mp3');
+        this.load.audio('voice_rotate', 'assets/audio/rotate.ogg');
 
         this.load.audio('vo_prompt_1', 'assets/audio/vo_prompt_1.mp3');
         this.load.audio('vo_prompt_2', 'assets/audio/vo_prompt_2.mp3');
@@ -113,7 +113,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.audio('sfx_correct', 'assets/audio/sfx_correct.wav');
         this.load.audio('sfx_wrong', 'assets/audio/sfx_wrong.wav');
         this.load.audio('sfx_click', 'assets/audio/sfx_click.wav');
-        this.load.audio('sfx_pop', 'assets/audio/sfx_pop.mp3');
+        this.load.audio('sfx_pop', 'assets/audio/sfx_pop.wav');
         this.load.audio(
             'correct_answer_1',
             'assets/audio/correct_answer_1.mp3'
