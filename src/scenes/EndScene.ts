@@ -88,6 +88,7 @@ export class EndScene extends Phaser.Scene {
             .setInteractive({ useHandCursor: true });
 
         replayBtn.on('pointerdown', () => {
+            this.sound.stopAll();
             this.sound.play('sfx_click');
             this.scene.start('GameScene', { level: 0 });
         });
@@ -101,6 +102,7 @@ export class EndScene extends Phaser.Scene {
             .setInteractive({ useHandCursor: true });
 
         exitBtn.on('pointerdown', () => {
+            this.sound.stopAll();
             this.sound.play('sfx_click');
             this.scene.start('MenuScene');
 
