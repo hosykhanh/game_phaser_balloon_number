@@ -1,7 +1,10 @@
-// vite.config.ts
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
+    server: {
+        open: true, // tự động mở browser
+    },
     build: {
         // Hạ target xuống mức mà iOS cũ vẫn chịu được
         // Có thể chỉnh tuỳ mức bạn muốn hỗ trợ:

@@ -19,7 +19,7 @@ export class EndScene extends Phaser.Scene {
         this.load.image('btn_exit', 'assets/images/btn_exit.png');
 
         // Âm thanh click
-        this.load.audio('sfx_click', 'assets/audio/sfx_click.wav');
+        this.load.audio('sfx_click', 'assets/audio/sfx_click.mp3');
 
         // Âm thanh chúc mừng
         this.load.audio('complete', 'assets/audio/complete.mp3');
